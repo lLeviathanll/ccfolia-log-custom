@@ -693,7 +693,11 @@ function renderTabBgColors() {
   if (!tabs.length) { c.innerHTML='<span class="hint-text">로그를 불러오면 표시됩니다.</span>'; return; }
   c.innerHTML = '';
   const TAB_LABEL = { main:'메인', info:'정보', other:'잡담', secret:'비밀' };
-  tabs.forEach(tab => {
+  const TAB_ORDER = ['main','info','other'];
+  const priority = tabs.filter(t => TAB_ORDER.includes(t)).sort((a,b) => TAB_ORDER.indexOf(a)-TAB_ORDER.indexOf(b));
+  const rest = tabs.filter(t => !TAB_ORDER.includes(t)).sort((a,b) => a.localeCompare(b,'ko'));
+  const sortedTabs = [...priority, ...rest];
+  sortedTabs.forEach(tab => {
     const row = document.createElement('div'); row.className='speaker-row';
     const enabled = !!S.tabBgColorsEnabled[tab];
     const chk = document.createElement('input'); chk.type='checkbox'; chk.checked=enabled;
