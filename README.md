@@ -1,1 +1,1 @@
-# ccfolia-log-custom
+# ccfolia-log-editor
